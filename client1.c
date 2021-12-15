@@ -14,7 +14,8 @@
     которых указаны в полученной информации, и передать ответ в серверное гнездо.
 */
 
-char* operation(char* file_names){
+char *operation(char *file_names)
+{
 
     char output[2048] = "Lines amount:\n";
     char input[2048] = "";
@@ -57,7 +58,8 @@ int main()
     // Creating socket file descriptor
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        printf("<CLIENT 1>\nSocket creation failed\n\n");
+        fprintf(stderr, "<CLIENT 1>\nSocket creation failed\n\n");
+        return 3;
     }
 
     printf("<CLIENT 1>\nSocket was created\n\n");
@@ -72,7 +74,7 @@ int main()
     int server_size = sizeof(server_addr);
     int server_bytes;
 
-    char identify_message[] = "";
+    char identify_message[] = "identify";
 
     sleep(1);
     sendto(sockfd, identify_message, strlen(identify_message), 0, (const struct sockaddr *)&server_addr, server_size);
