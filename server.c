@@ -80,20 +80,24 @@ int main()
 
     sleep(1);
     client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
-    buffer[client1_bytes] = '\0';
-    if (strlen(buffer) > 0)
-        printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
 
     sleep(1);
     sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
 
     sleep(1);
     client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
-    buffer[client1_bytes] = '\0';
     printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
 
-    // sleep(1);
-    // sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
+    sleep(1);
+    client2_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client2_addr, &client2_size);
+
+    sleep(1);
+    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client2_addr, client2_size);
+
+    sleep(1);
+    client2_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client2_addr, &client2_size);
+    printf("<SERVER>\nMessage from client2:\n%s\n\n", buffer);
+
 
     return 0;
 }

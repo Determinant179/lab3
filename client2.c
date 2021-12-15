@@ -8,9 +8,9 @@
 #include <netinet/in.h>
 
 /*
-Клиент1.
+Клиент2.
     Создать гнездо без установления соединения домена INET. Считать из серверного
-    гнезда информацию. Определить количество строк, содержащихся в файлах, имена
+    гнезда информацию. Определить количество байтов, содержащихся в файлах, имена
     которых указаны в полученной информации, и передать ответ в серверное гнездо.
 */
 
@@ -25,7 +25,7 @@ char* operation(char* file_names){
             strncat(input, &file_names[i], 1);
         else
         {
-            char cmd[2048] = "wc -l ";
+            char cmd[2048] = "wc -c ";
             char output_line[2048] = "";
 
             strcat(cmd, input);
@@ -33,7 +33,7 @@ char* operation(char* file_names){
             FILE *fp;
             if ((fp = popen(cmd, "r")) == NULL)
             {
-                fprintf(stderr, "\n<CLIENT 1>\nError while popen\n\n");
+                fprintf(stderr, "\n<CLIENT 2>\nError while popen\n\n");
                 return 3;
             }
 
@@ -57,10 +57,10 @@ int main()
     // Creating socket file descriptor
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        printf("<CLIENT 1>\nSocket creation failed\n\n");
+        printf("<CLIENT 2>\nSocket creation failed\n\n");
     }
 
-    printf("<CLIENT 1>\nSocket was created\n\n");
+    printf("<CLIENT 2>\nSocket was created\n\n");
 
     memset(&server_addr, 0, sizeof(server_addr));
 
@@ -79,7 +79,7 @@ int main()
 
     sleep(1);
     server_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&server_addr, &server_size);
-    printf("<CLIENT 1>\nMessage from server:\n%s\n\n", buffer);
+    printf("<CLIENT 2>\nMessage from server:\n%s\n\n", buffer);
 
     sleep(1);
     sendto(sockfd, operation(buffer), 2048, 0, (const struct sockaddr *)&server_addr, server_size);
