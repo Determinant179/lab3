@@ -1,0 +1,17 @@
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1

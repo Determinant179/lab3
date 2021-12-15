@@ -1,0 +1,53 @@
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+file1.txt⏎                                                                      paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+client1.c:19:12: warning: incompatible pointer types passing 'char *[3]' to parameter of type 'const char *' [-Wincompatible-pointer-types]
+    printf(file_names);
+           ^~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:170:36: note: passing argument to parameter here
+int      printf(const char * __restrict, ...) __printflike(1, 2);
+                                       ^
+client1.c:19:12: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+    printf(file_names);
+           ^~~~~~~~~~
+client1.c:19:12: note: treat the string as an argument to avoid this
+    printf(file_names);
+           ^
+           "%s", 
+2 warnings generated.
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+?O?⏎                                                                            paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+client1.c:19:12: warning: incompatible pointer types passing 'const char *[3]' to parameter of type 'const char *' [-Wincompatible-pointer-types]
+    printf(file_names);
+           ^~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:170:36: note: passing argument to parameter here
+int      printf(const char * __restrict, ...) __printflike(1, 2);
+                                       ^
+client1.c:19:12: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+    printf(file_names);
+           ^~~~~~~~~~
+client1.c:19:12: note: treat the string as an argument to avoid this
+    printf(file_names);
+           ^
+           "%s", 
+2 warnings generated.
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+??file1.txtfile2.txtfile3.txt⏎                                                  paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+file1.txtfile2.txtfile3.txt⏎                                                    paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+fish: './client1' terminated by signal SIGILL (Illegal instruction)
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3 [SIGILL]> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> clang client1.c -o client1
+paveltravkin@MacBook-Pro ~/D/В/О/4/lab3> ./client1
