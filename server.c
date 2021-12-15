@@ -1,4 +1,3 @@
-// Server side implementation of UDP client-server model
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -8,7 +7,23 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-// Driver code
+/*
+Сервер.
+    Создать гнездо без установления соединения домена INET. Присвоить ему имя.
+    Записать в гнездо информацию(имена) обо всех файлах текущего каталога.
+    Распечатать ответы клиентов.
+
+Клиент1.
+    Создать гнездо без установления соединения домена INET. Считать из серверного
+    гнезда информацию. Определить количество строк, содержащихся в файлах, имена
+    которых указаны в полученной информации, и передать ответ в серверное гнездо.
+
+Клиент2.
+    Создать гнездо без установления соединения домена INET. Считать из серверного
+    гнезда информацию. Определить количество байтов, содержащихся в файлах, имена
+    которых указаны в полученной информации, и передать ответ в серверное гнездо.
+*/
+
 int main()
 {
 
@@ -48,25 +63,27 @@ int main()
     memset(&client2_addr, 0, sizeof(client2_addr));
 
     // Filling server information
-    server_addr.sin_family = AF_INET; // IPv4
+    server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(8080);
 
-    // Bind the socket with the server address
+    // Name the socket
     if (bind(sockfd, (const struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
     {
         printf("<SERVER>\nBind failed\n\n");
     }
 
-
     int client1_size = sizeof(client1_addr);
     int client2_size = sizeof(client2_addr);
+
     int client1_bytes, client2_bytes;
 
-
+    sleep(1);
     client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
     buffer[client1_bytes] = '\0';
     printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
+
+    sleep(1);
     sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
 
     return 0;

@@ -1,4 +1,3 @@
-// Client side implementation of UDP client-server model
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -8,7 +7,13 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-// Driver code
+/*
+Клиент1.
+    Создать гнездо без установления соединения домена INET. Считать из серверного
+    гнезда информацию. Определить количество строк, содержащихся в файлах, имена
+    которых указаны в полученной информации, и передать ответ в серверное гнездо.
+*/
+
 int main()
 {
 
@@ -44,7 +49,7 @@ int main()
         printf("<CLIENT 1>\nSocket creation failed\n\n");
     }
 
-        printf("<CLIENT 1>\nSocket was created\n\n");
+    printf("<CLIENT 1>\nSocket was created\n\n");
 
     memset(&server_addr, 0, sizeof(server_addr));
 
@@ -53,9 +58,13 @@ int main()
     server_addr.sin_port = htons(8080);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
-    int server_bytes, server_size;
+    int server_size = sizeof(server_addr);
+    int server_bytes;
 
-    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&server_addr, sizeof(server_addr));
+    sleep(1);
+    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&server_addr, server_size);
+
+    sleep(1);
     server_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&server_addr, &server_size);
     buffer[server_bytes] = '\0';
     printf("<CLIENT 1>\nMessage from server:\n%s\n\n", buffer);
