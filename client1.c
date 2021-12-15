@@ -36,7 +36,7 @@ int main()
 
     int sockfd;
     char buffer[2048];
-    struct sockaddr_in servaddr;
+    struct sockaddr_in server_addr;
 
     // Creating socket file descriptor
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
@@ -46,18 +46,18 @@ int main()
 
         printf("<CLIENT 1>\nSocket was created\n\n");
 
-    memset(&servaddr, 0, sizeof(servaddr));
+    memset(&server_addr, 0, sizeof(server_addr));
 
     // Filling server information
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(8080);
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(8080);
+    server_addr.sin_addr.s_addr = INADDR_ANY;
 
-    int n, len;
+    int server_bytes, server_size;
 
-    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
-    n = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&servaddr, &len);
-    buffer[n] = '\0';
+    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&server_addr, sizeof(server_addr));
+    server_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&server_addr, &server_size);
+    buffer[server_bytes] = '\0';
     printf("<CLIENT 1>\nMessage from server:\n%s\n\n", buffer);
 
     close(sockfd);

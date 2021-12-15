@@ -33,7 +33,7 @@ int main()
 
     int sockfd;
     char buffer[2048];
-    struct sockaddr_in servaddr, cliaddr;
+    struct sockaddr_in server_addr, client1_addr, client2_addr;
 
     // Creating socket file descriptor
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
@@ -43,28 +43,31 @@ int main()
 
     printf("<SERVER>\nSocket was created\n\n");
 
-    memset(&servaddr, 0, sizeof(servaddr));
-    memset(&cliaddr, 0, sizeof(cliaddr));
+    memset(&server_addr, 0, sizeof(server_addr));
+    memset(&client1_addr, 0, sizeof(client1_addr));
+    memset(&client2_addr, 0, sizeof(client2_addr));
 
     // Filling server information
-    servaddr.sin_family = AF_INET; // IPv4
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-    servaddr.sin_port = htons(8080);
+    server_addr.sin_family = AF_INET; // IPv4
+    server_addr.sin_addr.s_addr = INADDR_ANY;
+    server_addr.sin_port = htons(8080);
 
     // Bind the socket with the server address
-    if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
+    if (bind(sockfd, (const struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
     {
         printf("<SERVER>\nBind failed\n\n");
     }
 
-    int len, n;
 
-    len = sizeof(cliaddr); // len is value/resuslt
+    int client1_size = sizeof(client1_addr);
+    int client2_size = sizeof(client2_addr);
+    int client1_bytes, client2_bytes;
 
-    n = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&cliaddr, &len);
-    buffer[n] = '\0';
+
+    client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
+    buffer[client1_bytes] = '\0';
     printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
-    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&cliaddr, len);
+    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
 
     return 0;
 }
