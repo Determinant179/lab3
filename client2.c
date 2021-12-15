@@ -16,7 +16,7 @@
 
 char* operation(char* file_names){
 
-    char output[2048] = "";
+    char output[2048] = "Bytes:\n";
     char input[2048] = "";
 
     for (size_t i = 0; i < strlen(file_names); i++)

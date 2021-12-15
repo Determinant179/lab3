@@ -48,9 +48,8 @@ int main()
 
     int sockfd;
     char buffer[2048];
-    struct sockaddr_in server_addr, client1_addr, client2_addr;
+    struct sockaddr_in server_addr, current_client_addr;
 
-    // Creating socket file descriptor
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
         printf("<SERVER>\nSocket creation failed\n\n");
@@ -59,10 +58,8 @@ int main()
     printf("<SERVER>\nSocket was created\n\n");
 
     memset(&server_addr, 0, sizeof(server_addr));
-    memset(&client1_addr, 0, sizeof(client1_addr));
-    memset(&client2_addr, 0, sizeof(client2_addr));
+    memset(&current_client_addr, 0, sizeof(current_client_addr));
 
-    // Filling server information
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     server_addr.sin_port = htons(8080);
@@ -73,30 +70,26 @@ int main()
         printf("<SERVER>\nBind failed\n\n");
     }
 
-    int client1_size = sizeof(client1_addr);
-    int client2_size = sizeof(client2_addr);
 
-    int client1_bytes, client2_bytes;
+    int current_client_size = sizeof(current_client_addr);
 
-    sleep(1);
-    client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
+    int current_client_bytes;
 
-    sleep(1);
-    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
+    while (1)
+    {
+        sleep(1);
+        current_client_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&current_client_addr, &current_client_size);
 
-    sleep(1);
-    client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
-    printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
+        sleep(1);
+        sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&current_client_addr, current_client_size);
 
-    sleep(1);
-    client2_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client2_addr, &client2_size);
-
-    sleep(1);
-    sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client2_addr, client2_size);
-
-    sleep(1);
-    client2_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client2_addr, &client2_size);
-    printf("<SERVER>\nMessage from client2:\n%s\n\n", buffer);
+        sleep(1);
+        current_client_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&current_client_addr, &current_client_size);
+        if (buffer[0] == 'B')
+            printf("<SERVER>\nMessage from client2:\n%s\n\n", buffer);
+        if (buffer[0] == 'L')
+            printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
+    }
 
 
     return 0;
