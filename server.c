@@ -64,7 +64,7 @@ int main()
 
     // Filling server information
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = INADDR_ANY;
+    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     server_addr.sin_port = htons(8080);
 
     // Name the socket
@@ -81,10 +81,19 @@ int main()
     sleep(1);
     client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
     buffer[client1_bytes] = '\0';
-    printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
+    if (strlen(buffer) > 0)
+        printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
 
     sleep(1);
     sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
+
+    sleep(1);
+    client1_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&client1_addr, &client1_size);
+    buffer[client1_bytes] = '\0';
+    printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
+
+    // sleep(1);
+    // sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&client1_addr, client1_size);
 
     return 0;
 }
