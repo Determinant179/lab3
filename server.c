@@ -77,17 +77,19 @@ int main()
     while (1)
     {
         sleep(1);
-        current_client_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&current_client_addr, &current_client_size);
+        current_client_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_DONTWAIT, (struct sockaddr *)&current_client_addr, &current_client_size);
+        if (current_client_bytes > -1)
+        {
+            if (buffer == "identify")
+                continue;
+            else if (buffer[0] == 'B')
+                printf("<SERVER>\nMessage from client2:\n%s\n\n", buffer);
+            else if (buffer[0] == 'L')
+                printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
 
-        if (buffer == "identify")
-            continue;
-        else if (buffer[0] == 'B')
-            printf("<SERVER>\nMessage from client2:\n%s\n\n", buffer);
-        else if (buffer[0] == 'L')
-            printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
-
-        sleep(1);
-        sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&current_client_addr, current_client_size);
+            sleep(1);
+            sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&current_client_addr, current_client_size);
+        }
     }
 
     return 0;

@@ -72,15 +72,19 @@ int main()
     server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     int server_size = sizeof(server_addr);
-    int server_bytes;
+    int server_bytes = -1;
 
     char identify_message[] = "identify";
 
-    sleep(1);
-    sendto(sockfd, identify_message, strlen(identify_message), 0, (const struct sockaddr *)&server_addr, server_size);
+    while (server_bytes == -1)
+    {
+        sleep(1);
+        sendto(sockfd, identify_message, strlen(identify_message), 0, (const struct sockaddr *)&server_addr, server_size);
 
-    sleep(1);
-    server_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_WAITALL, (struct sockaddr *)&server_addr, &server_size);
+        sleep(1);
+        server_bytes = recvfrom(sockfd, (char *)buffer, 2048, MSG_DONTWAIT, (struct sockaddr *)&server_addr, &server_size);
+    }
+
     printf("<CLIENT 2>\nMessage from server:\n%s\n\n", buffer);
 
     sleep(1);
