@@ -87,7 +87,6 @@ int main()
             else if (buffer[0] == 'L')
                 printf("<SERVER>\nMessage from client1:\n%s\n\n", buffer);
 
-            sleep(1);
             sendto(sockfd, output, 2048, 0, (const struct sockaddr *)&current_client_addr, current_client_size);
         }
     }
